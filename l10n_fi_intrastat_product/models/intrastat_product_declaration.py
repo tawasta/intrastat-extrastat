@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, _
-from openerp.exceptions import UserError
+from openerp.exceptions import Warning as UserError
 
 
 class IntrastatProductDeclaration(models.Model):
