@@ -22,7 +22,7 @@
 {
     'name': 'Intrastat: export Finnish Intrastat CSV',
     'summary': 'Finnish Intrastat report for Tulli',
-    'version': '10.0.0.1.0',
+    'version': '8.0.0.1.0',
     'category': 'CRM',
     'website': 'https://tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
