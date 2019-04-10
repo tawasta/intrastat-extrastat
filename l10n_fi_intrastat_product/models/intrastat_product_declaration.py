@@ -45,20 +45,20 @@ class IntrastatProductDeclaration(models.Model):
 
     def _generate_csv_headers(self):
         headers = [
-            _('Information provider'),
-            _('Period'),
-            _('Direction'),
-            _('Delegate'),
+            _('Tiedonantaja'),
+            _('Jakso'),
+            _('Suunta'),
+            _('Asiamies'),
             _('CN8'),
-            _('Transaction'),
-            _('Member country'),
-            _('Country of origin'),
-            _('Mode of transport'),
-            _('Net weight'),
-            _('Additional units'),
-            _('Invoice amount'),
-            _('Statistical amount'),
-            _('Reference'),
+            _('Kauppa'),
+            _('Jäsenmaa'),
+            _('Alkuperämaa'),
+            _('Kuljetusmuoto'),
+            _('Nettopaino'),
+            _('Lisäyksiköt'),
+            _('Laskutusarvo euroissa'),
+            _('Tilastoarvo euroissa'),
+            _('Viite'),
         ]
 
         return self._list_to_csv_line(headers)
