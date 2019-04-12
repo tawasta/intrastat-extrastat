@@ -98,7 +98,7 @@ class IntrastatProductDeclaration(models.Model):
         member = ''
         if report_type == 1:
             member = declaration_line.product_origin_country_id.code or \
-                     declaration_line.src_dest_country_id.code
+                declaration_line.src_dest_country_id.code
 
         line.append(member)
 
