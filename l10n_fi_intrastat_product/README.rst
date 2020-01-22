@@ -6,7 +6,7 @@
 Intrastat: export Finnish Intrastat CSV
 =======================================
 
-Finnish Intrastat report for Tulli
+Finnish Intrastat report for Customs (Tulli)
 
 Configuration
 =============
