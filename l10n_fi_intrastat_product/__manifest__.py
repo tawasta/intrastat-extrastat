@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2019 Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
+#    Copyright 2019 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -22,10 +21,10 @@
 {
     'name': 'Intrastat: export Finnish Intrastat CSV',
     'summary': 'Finnish Intrastat report for Tulli',
-    'version': '10.0.0.1.0',
+    'version': '12.0.0.1.0',
     'category': 'CRM',
     'website': 'https://tawasta.fi',
-    'author': 'Oy Tawasta Technologies Ltd.',
+    'author': 'Tawasta',
     'license': 'AGPL-3',
     'application': False,
     'installable': True,

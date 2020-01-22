@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from odoo import models, api, _
 from odoo.exceptions import UserError
 
@@ -8,7 +7,9 @@ class IntrastatProductDeclaration(models.Model):
 
     @api.multi
     def generate_csv_finnish(self):
-        # Generate Finnish Intrastat Declaration CSV file
+        """
+        Generate Finnish Intrastat Declaration CSV file
+        """
 
         self.ensure_one()
         self.message_post(body=_("Generate CSV Declaration File"))
