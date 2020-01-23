@@ -17,4 +17,17 @@
         </field>
     </record>
 
+    <record id="action_intrastat_product_declaration" model="ir.actions.act_window">
+        <field name="name">Intrastat Product Declaration</field>
+        <field name="res_model">intrastat.product.declaration</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_intrastat_product_declaration"
+              parent="intrastat_base.menu_intrastat_base_root"
+              name="Product declaration"
+              action="action_intrastat_product_declaration"
+              sequence="10"/>
+
 </odoo>
