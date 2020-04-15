@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <template id="report_invoice_finnish_document" inherit_id="l10n_fi_invoice.report_invoice_finnish_document">
+        <xpath expr="//table[@class='table table-condensed products-table']//th[2]" position="after">
+            <th class="text-left">Country of <br/>Origin</th>
+        </xpath>
+        <xpath expr="//span[@t-field='l.quantity']/.." position="after">
+            <td class="text-left">
+                <span t-field="l.product_id.origin_country_id.code"/>
+            </td>
+        </xpath>
+    </template>
+</odoo>
