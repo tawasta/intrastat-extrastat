@@ -143,7 +143,7 @@ class IntrastatProductDeclaration(models.Model):
                 "name": filename,
                 "res_id": self.id,
                 "res_model": self._name,
-                "datas": base64.encodestring(csv_string),
+                "datas": base64.b64encode(csv_string.encode('ascii')),
                 "datas_fname": filename,
             }
         )

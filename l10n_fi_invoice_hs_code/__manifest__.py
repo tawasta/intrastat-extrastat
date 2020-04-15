@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2019 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Copyright 2020 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,17 +19,15 @@
 ##############################################################################
 
 {
-    "name": "Intrastat: export Finnish Intrastat CSV",
-    "summary": "Finnish Intrastat report for Customs (Tulli)",
-    "version": "12.0.0.1.1",
-    "category": "CRM",
-    "website": "https://tawasta.fi",
+    "name": "HS code for Finnish Invoice",
+    "summary": "HS code for Finnish Invoice",
+    "version": "12.0.1.0.0",
+    "category": "Localization",
+    "website": "https://github.com/Tawasta/intrastat-extrastat",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "external_dependencies": {"python": [], "bin": []},
-    "depends": ["intrastat_product"],
-    "data": ["views/intrastat_product_declaration.xml"],
-    "demo": [],
+    "depends": ["l10n_fi_invoice", "product_harmonized_system"],
+    "data": ["report/account_invoice_report.xml"],
 }
