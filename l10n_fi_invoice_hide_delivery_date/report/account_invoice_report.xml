@@ -2,6 +2,8 @@
 
 <odoo>
     <template id="report_invoice_finnish_document" inherit_id="l10n_fi_invoice.report_invoice_finnish_document">
-        <xpath expr="//span[@t-field='o.date_delivered']/../.." position="replace"/>
+        <xpath expr="//span[@t-field='o.date_delivered']/../.." position="attributes">
+            <attribute name="t-if">1 == 0</attribute>
+        </xpath>
     </template>
 </odoo>
