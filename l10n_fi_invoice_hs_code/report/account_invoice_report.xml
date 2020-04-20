@@ -2,7 +2,7 @@
 
 <odoo>
     <template id="report_invoice_finnish_document" inherit_id="l10n_fi_invoice.report_invoice_finnish_document">
-        <xpath expr="//table[@class='table table-condensed products-table']//th[3]" position="before">
+        <xpath expr="//table[@class='table table-condensed products-table']//th[@class='text-right']" position="before">
             <th class="text-left">HS Code</th>
         </xpath>
         <xpath expr="//span[@t-field='l.price_unit']/.." position="before">
