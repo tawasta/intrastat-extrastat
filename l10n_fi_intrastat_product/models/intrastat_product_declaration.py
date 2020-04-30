@@ -92,14 +92,14 @@ class IntrastatProductDeclaration(models.Model):
         line.append("")
 
         # Member country
-        member = ""
-        if report_type == 1:
-            member = declaration_line.src_dest_country_id.code
-
-        line.append(member)
-
-        # Origin country
         line.append(declaration_line.src_dest_country_id.code)
+
+        # Origin country (Country of Origin)
+        coo = ""
+        if report_type == 1:
+            coo = declaration_line.src_dest_country_id.code
+
+        line.append(coo)
 
         # Mode of transport
         transport_mode = ""
