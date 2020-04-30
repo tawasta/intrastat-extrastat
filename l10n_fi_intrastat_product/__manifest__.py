@@ -21,7 +21,7 @@
 {
     "name": "Intrastat: export Finnish Intrastat CSV",
     "summary": "Finnish Intrastat report for Customs (Tulli)",
-    "version": "12.0.0.1.1",
+    "version": "12.0.0.3.0",
     "category": "CRM",
     "website": "https://tawasta.fi",
     "author": "Tawasta",
