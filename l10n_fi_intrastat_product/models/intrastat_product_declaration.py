@@ -91,15 +91,15 @@ class IntrastatProductDeclaration(models.Model):
         # the code. Most likely it is 11, but it is safer to add this manually
         line.append("")
 
-        # Origin country
-        line.append(declaration_line.src_dest_country_id.code)
-
         # Member country
         member = ""
         if report_type == 1:
             member = declaration_line.src_dest_country_id.code
 
         line.append(member)
+
+        # Origin country
+        line.append(declaration_line.src_dest_country_id.code)
 
         # Mode of transport
         transport_mode = ""
