@@ -2,11 +2,14 @@
 
 <odoo>
     <template id="report_invoice_finnish_document" inherit_id="l10n_fi_invoice.report_invoice_finnish_document">
-        <xpath expr="//div[@style='border-top: 1px dashed gray']" position="replace"/>
-        <xpath expr="//div[@style='text-align: center;']/.." position="replace"/>
+        <xpath expr="//div[@style='border-top: 1px dashed gray']" position="attributes">
+            <attribute name="style">display: none;</attribute>
+        </xpath>
+        <xpath expr="//div[@style='text-align: center;']/.." position="attributes">
+            <attribute name="style">display: none;</attribute>
+        </xpath>
         <xpath expr="//div[@class='bank-transfer-wrap last-page']" position="attributes">
-            <attribute name="class">bank-transfer-wrap last-page container</attribute>
-            <attribute name="style">position: fixed; bottom: -1500px !important; width: 97%; height: 150px; border-top: 1px solid black;</attribute>
+            <attribute name="style">display: none;</attribute>
         </xpath>
     </template>
 
