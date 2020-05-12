@@ -13,7 +13,9 @@
         </xpath>
     </template>
 
+    <!--
     <template id="report_layout_footer_finnish" inherit_id="l10n_fi_invoice.report_layout_finnish">
         <xpath expr="//t[@t-call='l10n_fi_invoice.report_layout_footer_finnish']" position="replace"/>
     </template>
+    -->
 </odoo>
