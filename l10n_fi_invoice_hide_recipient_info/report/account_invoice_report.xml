@@ -8,11 +8,9 @@
         <xpath expr="//div[@style='text-align: center;']/.." position="attributes">
             <attribute name="style">display: none;</attribute>
         </xpath>
-        <!--
         <xpath expr="//div[@class='bank-transfer-wrap last-page']" position="attributes">
             <attribute name="style">display: none;</attribute>
         </xpath>
-        -->
     </template>
 
     <!--
