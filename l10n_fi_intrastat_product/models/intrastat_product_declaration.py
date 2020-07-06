@@ -97,7 +97,7 @@ class IntrastatProductDeclaration(models.Model):
         # Origin country (Country of Origin)
         coo = ""
         if report_type == 1:
-            coo = declaration_line.src_dest_country_id.code
+            coo = declaration_line.product_origin_country_id.code
 
         line.append(coo)
 
