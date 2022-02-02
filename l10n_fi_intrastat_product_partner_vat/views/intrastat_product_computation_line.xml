@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+	<record id="intrastat_product_computation_line_view_tree" model="ir.ui.view">
+		<field name="name">intrastat.product.computation.line.partner.vat</field>
+		<field name="model">intrastat.product.computation.line</field>
+		<field name="inherit_id" ref="intrastat_product.intrastat_product_computation_line_view_tree" />
+		<field name="arch" type="xml">
+            <field name="invoice_id" position="after">
+                <field name="partner_vat"/>
+		    </field>
+		</field>
+	</record>
+</odoo>
