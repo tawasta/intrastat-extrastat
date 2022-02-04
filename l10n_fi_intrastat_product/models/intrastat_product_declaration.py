@@ -32,14 +32,41 @@ class IntrastatProductDeclaration(models.Model):
 
     def _generate_csv(self):
         csv_string = self._generate_csv_headers()
+        first = True
 
-        if self.declaration_line_ids:
-            # Add information provider information to first row
-            csv_string += self._generate_csv_line(self.declaration_line_ids[0], True)
+        for declaration_line in self.declaration_line_ids:
+            grouped_by_vat = {}
 
-        # Loop through rest of the rows
-        for line in self.declaration_line_ids[1:]:
-            csv_string += self._generate_csv_line(line)
+            # Loop through transactions and fetch amount, quantity and
+            # weight information and group them by VAT
+            for computation_line in declaration_line.computation_line_ids:
+
+                vat = computation_line.partner_vat
+                amount = computation_line.amount_company_currency
+                suppl_unit_qty = computation_line.suppl_unit_qty
+                weight = computation_line.weight
+
+                # If VAT is not found, set null values
+                if not grouped_by_vat.get(vat):
+                    grouped_by_vat[vat] = [0, 0, 0]
+                grouped_by_vat[vat][0] += amount
+                grouped_by_vat[vat][1] += suppl_unit_qty
+                grouped_by_vat[vat][2] += weight
+
+            for vat, amount_line in grouped_by_vat.items():
+                amount = amount_line[0]
+                suppl_unit_qty = amount_line[1]
+                weight = amount_line[2]
+
+                # Add information provider information to first row
+                # if 'first' is set to True
+                csv_string += self._generate_csv_line(vat, amount,
+                    suppl_unit_qty, weight, declaration_line, first)
+                first = False
+
+        # Just in case no lines exist
+        if first:
+            csv_string += self._generate_csv_line("", 0, 0, declaration_line)
 
         return csv_string
 
@@ -49,6 +76,7 @@ class IntrastatProductDeclaration(models.Model):
             _("Period"),
             _("Direction"),
             _("Delegate"),
+            _("VAT"),
             _("CN8"),
             _("Transaction"),
             _("Member country"),
@@ -63,7 +91,7 @@ class IntrastatProductDeclaration(models.Model):
 
         return self._list_to_csv_line(headers)
 
-    def _generate_csv_line(self, declaration_line, first=False):
+    def _generate_csv_line(self, vat, amount, suppl_unit_qty, weight, declaration_line, first=False):
         line = list()
 
         # Report type is 1 for arrival, 2 for dispatch
@@ -72,7 +100,7 @@ class IntrastatProductDeclaration(models.Model):
         if first:
             # The first line has information provider info
 
-            # VAT
+            # Company's VAT
             line.append(self.company_id.vat)
             # Period
             line.append(self.year_month.replace("-", ""))
@@ -83,6 +111,9 @@ class IntrastatProductDeclaration(models.Model):
         else:
             # Other lines have four empty columns
             line += ["", "", "", ""]
+
+        # VAT
+        line.append(vat)
 
         # CN8
         line.append(declaration_line.hs_code_id.local_code)
@@ -108,17 +139,13 @@ class IntrastatProductDeclaration(models.Model):
         line.append(transport_mode)
 
         # Net weight
-        line.append(declaration_line.weight)
+        line.append(weight)
 
         # Quantity
-        qty = ""
-        if declaration_line.suppl_unit_qty >= 1:
-            # Add quantity if it is at least 1
-            qty = declaration_line.suppl_unit_qty
-        line.append(qty)
+        line.append(suppl_unit_qty)
 
         # Invoice amount
-        line.append(declaration_line.amount_company_currency)
+        line.append(amount)
 
         # Statistical amount
         line.append("")
