@@ -32,9 +32,6 @@ class IntrastatProductDeclaration(models.Model):
 
     def _generate_csv(self):
         csv_string = self._generate_csv_headers()
-
-        computation_line = self.env['intrastat.product.computation.line']
-        declaration_line_model = self.env['intrastat.product.declaration.line']
         first = True
 
         for declaration_line in self.declaration_line_ids:
