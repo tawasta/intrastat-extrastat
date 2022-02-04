@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-09 13:21+0000\n"
-"PO-Revision-Date: 2019-04-09 16:24+0300\n"
+"POT-Creation-Date: 2022-02-04 12:15+0000\n"
+"PO-Revision-Date: 2022-02-04 14:17+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,106 +15,133 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: fi\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #. module: l10n_fi_intrastat_product
-#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:58
+#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:89
 #, python-format
 msgid "Additional units"
 msgstr "Lisäyksiköt"
 
 #. module: l10n_fi_intrastat_product
-#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:52
+#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:83
 #, python-format
 msgid "CN8"
 msgstr "CN8"
 
 #. module: l10n_fi_intrastat_product
-#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:55
+#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:86
 #, python-format
 msgid "Country of origin"
 msgstr "Alkuperämaa"
 
 #. module: l10n_fi_intrastat_product
-#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:51
+#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:81
 #, python-format
 msgid "Delegate"
 msgstr "Asiamies"
 
 #. module: l10n_fi_intrastat_product
-#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:50
+#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:80
 #, python-format
 msgid "Direction"
 msgstr "Suunta"
 
 #. module: l10n_fi_intrastat_product
-#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:14
-#: model:ir.ui.view,arch_db:l10n_fi_intrastat_product.intrastat_product_declaration_view_form
+#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:15
+#: model_terms:ir.ui.view,arch_db:l10n_fi_intrastat_product.intrastat_product_declaration_view_form
 #, python-format
 msgid "Generate CSV Declaration File"
 msgstr "Luo CSV-ilmoitustiedosto"
 
 #. module: l10n_fi_intrastat_product
-#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:48
+#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:78
 #, python-format
 msgid "Information provider"
 msgstr "Tiedonantaja"
 
 #. module: l10n_fi_intrastat_product
-#: model:ir.model,name:l10n_fi_intrastat_product.model_intrastat_product_declaration
-msgid "Intrastat Product Report Base Object"
-msgstr "Intrastat Product Report Base Object"
+#: model:ir.model,name:l10n_fi_intrastat_product.model_intrastat_product_computation_line
+msgid "Intrastat Product Computataion Lines"
+msgstr ""
 
 #. module: l10n_fi_intrastat_product
-#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:59
+#: model:ir.actions.act_window,name:l10n_fi_intrastat_product.action_intrastat_product_declaration
+msgid "Intrastat Product Declaration"
+msgstr ""
+
+#. module: l10n_fi_intrastat_product
+#: model:ir.model,name:l10n_fi_intrastat_product.model_intrastat_product_declaration
+msgid "Intrastat Product Report Base Object"
+msgstr ""
+
+#. module: l10n_fi_intrastat_product
+#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:90
 #, python-format
 msgid "Invoice amount"
 msgstr "Laskutusarvo euroissa"
 
 #. module: l10n_fi_intrastat_product
-#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:54
+#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:85
 #, python-format
 msgid "Member country"
 msgstr "Jäsenmaa"
 
 #. module: l10n_fi_intrastat_product
-#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:56
+#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:87
 #, python-format
 msgid "Mode of transport"
 msgstr "Kuljetusmuoto"
 
 #. module: l10n_fi_intrastat_product
-#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:57
+#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:88
 #, python-format
 msgid "Net weight"
 msgstr "Nettopaino"
 
 #. module: l10n_fi_intrastat_product
-#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:29
+#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:31
 #, python-format
 msgid "No CSV File has been generated."
 msgstr "CSV-tiedostoa ei voitu luoda."
 
 #. module: l10n_fi_intrastat_product
-#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:49
+#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:79
 #, python-format
 msgid "Period"
 msgstr "Jakso"
 
 #. module: l10n_fi_intrastat_product
-#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:61
+#: model:ir.ui.menu,name:l10n_fi_intrastat_product.menu_intrastat_product_declaration
+msgid "Product declaration"
+msgstr ""
+
+#. module: l10n_fi_intrastat_product
+#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:92
 #, python-format
 msgid "Reference"
 msgstr "Viite"
 
 #. module: l10n_fi_intrastat_product
-#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:60
+#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:91
 #, python-format
 msgid "Statistical amount"
 msgstr "Tilastoarvo euroissa"
 
 #. module: l10n_fi_intrastat_product
-#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:53
+#: model:ir.model.fields,help:l10n_fi_intrastat_product.field_intrastat_product_computation_line__partner_vat
+msgid "The Tax Identification Number. Complete it if the contact is subjected to government taxes. Used in some legal statements."
+msgstr ""
+
+#. module: l10n_fi_intrastat_product
+#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:84
 #, python-format
 msgid "Transaction"
 msgstr "Kauppa"
+
+#. module: l10n_fi_intrastat_product
+#: code:addons/l10n_fi_intrastat_product/models/intrastat_product_declaration.py:82
+#: model:ir.model.fields,field_description:l10n_fi_intrastat_product.field_intrastat_product_computation_line__partner_vat
+#, python-format
+msgid "VAT"
+msgstr "Kauppakumppani"
