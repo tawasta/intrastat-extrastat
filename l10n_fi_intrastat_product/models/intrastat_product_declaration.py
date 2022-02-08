@@ -114,7 +114,7 @@ class IntrastatProductDeclaration(models.Model):
             line.append(report_type)
         else:
             # Other lines have four empty columns
-            line += ["", "", "", ""]
+            line += ["", "", ""]
 
         # VAT
         line.append(vat)
