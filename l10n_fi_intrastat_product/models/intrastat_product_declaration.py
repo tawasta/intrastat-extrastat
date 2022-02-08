@@ -75,7 +75,6 @@ class IntrastatProductDeclaration(models.Model):
             _("Information provider"),
             _("Period"),
             _("Direction"),
-            _("Delegate"),
             _("VAT"),
             _("CN8"),
             _("Transaction"),
@@ -106,8 +105,6 @@ class IntrastatProductDeclaration(models.Model):
             line.append(self.year_month.replace("-", ""))
             # Direction
             line.append(report_type)
-            # Delegate
-            line.append("")
         else:
             # Other lines have four empty columns
             line += ["", "", "", ""]
