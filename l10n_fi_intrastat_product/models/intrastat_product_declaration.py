@@ -33,8 +33,15 @@ class IntrastatProductDeclaration(models.Model):
     def _generate_csv(self):
         csv_string = self._generate_csv_headers()
         first = True
+        europe = self.env.ref("base.europe").country_ids
 
         for declaration_line in self.declaration_line_ids:
+
+            # Check does a Member country belong to EU
+            if (declaration_line.src_dest_country_id.id not in europe.ids
+                    or declaration_line.src_dest_country_id.code == "GB"):
+                continue
+
             grouped_by_vat = {}
 
             # Loop through transactions and fetch amount, quantity and
@@ -107,7 +114,7 @@ class IntrastatProductDeclaration(models.Model):
             line.append(report_type)
         else:
             # Other lines have four empty columns
-            line += ["", "", "", ""]
+            line += ["", "", ""]
 
         # VAT
         line.append(vat)
