@@ -71,10 +71,6 @@ class IntrastatProductDeclaration(models.Model):
                     suppl_unit_qty, weight, declaration_line, first)
                 first = False
 
-        # Just in case no lines exist
-        if first:
-            csv_string += self._generate_csv_line("", 0, 0, declaration_line)
-
         return csv_string
 
     def _generate_csv_headers(self):
