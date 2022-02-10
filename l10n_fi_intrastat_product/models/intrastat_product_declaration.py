@@ -126,9 +126,7 @@ class IntrastatProductDeclaration(models.Model):
         line.append(declaration_line.src_dest_country_id.code)
 
         # Origin country (Country of Origin)
-        coo = ""
-        if report_type == 1:
-            coo = declaration_line.product_origin_country_id.code
+        coo = declaration_line.product_origin_country_id.code
 
         line.append(coo)
 
@@ -139,13 +137,13 @@ class IntrastatProductDeclaration(models.Model):
         line.append(transport_mode)
 
         # Net weight
-        line.append(weight)
+        line.append(str(weight).replace(".",","))
 
         # Quantity
-        line.append(suppl_unit_qty)
+        line.append(str(suppl_unit_qty).replace(".",","))
 
         # Invoice amount
-        line.append(amount)
+        line.append(str(amount).replace(".",","))
 
         # Statistical amount
         line.append("")
