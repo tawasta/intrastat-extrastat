@@ -135,7 +135,7 @@ class IntrastatProductDeclaration(models.Model):
         # Transaction code
         transaction_code = ""
         if declaration_line.transaction_id:
-            transport_mode = declaration_line.transaction_id.code
+            transaction_code = declaration_line.transaction_id.code
         line.append(transaction_code)
 
         # Member country
