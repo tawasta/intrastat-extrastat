@@ -132,9 +132,11 @@ class IntrastatProductDeclaration(models.Model):
         # CN8
         line.append(declaration_line.hs_code_id.local_code)
 
-        # Transaction code. We leave this empty as we can't realiably decide
-        # the code. Most likely it is 11, but it is safer to add this manually
-        line.append("")
+        # Transaction code
+        transaction_code = ""
+        if declaration_line.transaction_id:
+            transport_mode = declaration_line.transaction_id.code
+        line.append(transaction_code)
 
         # Member country
         line.append(declaration_line.src_dest_country_id.code)
