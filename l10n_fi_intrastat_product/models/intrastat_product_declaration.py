@@ -31,8 +31,10 @@ class IntrastatProductDeclaration(models.Model):
 
     @api.model
     def _open_attach_view(self, attach_id, title='XML file'):
-        '''Returns an action which opens the form view of the
-        corresponding attachement'''
+        """
+        Returns an action which opens the form view of the
+        corresponding attachment
+        """
         action = {
             'name': title,
             'view_mode': 'form',
@@ -116,14 +118,14 @@ class IntrastatProductDeclaration(models.Model):
         if first:
             # The first line has information provider info
 
-            # Company's VAT
+            # Company's VAT (Information provider)
             line.append(self.company_id.vat)
             # Period
             line.append(self.year_month.replace("-", ""))
             # Direction
             line.append(report_type)
         else:
-            # Other lines have four empty columns
+            # Other lines have three empty columns
             line += ["", "", ""]
 
         # VAT
@@ -132,7 +134,7 @@ class IntrastatProductDeclaration(models.Model):
         # CN8
         line.append(declaration_line.hs_code_id.local_code)
 
-        # Transaction code
+        # Transaction code (Transaction)
         transaction_code = ""
         if declaration_line.transaction_id:
             transaction_code = declaration_line.transaction_id.code
@@ -153,18 +155,18 @@ class IntrastatProductDeclaration(models.Model):
         line.append(transport_mode)
 
         # Net weight
-        line.append(str(weight).replace(".",","))
+        line.append(str(weight).replace(".", ","))
 
-        # Quantity
-        line.append(str(suppl_unit_qty).replace(".",","))
+        # Quantity (Additional units)
+        line.append(str(suppl_unit_qty).replace(".", ","))
 
         # Invoice amount
-        line.append(str(amount).replace(".",","))
+        line.append(str(amount).replace(".", ","))
 
         # Statistical amount
         line.append("")
 
-        # Ref (not in use yet in Finnish report)
+        # Ref (not yet used in Finnish Intrastat-report)
         line.append("")
 
         return self._list_to_csv_line(line)
