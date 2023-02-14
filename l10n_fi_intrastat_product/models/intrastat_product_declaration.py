@@ -22,25 +22,38 @@ class IntrastatProductDeclaration(models.Model):
         csv_string = self._generate_csv()
 
         if csv_string:
-            attach_id = self._attach_csv_file(
+            attachment_id = self._attach_csv_file(
                 csv_string, "{}_{}".format(self.declaration_type, self.revision)
             )
-            return self._open_attach_view(attach_id)
+            return self._download_attachment(attachment_id)
         else:
             raise UserError(_("No CSV File has been generated."))
 
+    def _download_attachment(self, attachment):
+        url = "{}/web/content/{}?download=true".format(
+            self.env["ir.config_parameter"].sudo().get_param("web.base.url"),
+            str(attachment.id),
+        )
+        return {
+            "type": "ir.actions.act_url",
+            "url": url,
+            "target": "current",
+        }
+
     @api.model
-    def _open_attach_view(self, attach_id, title='XML file'):
-        '''Returns an action which opens the form view of the
-        corresponding attachement'''
+    def _open_attach_view(self, attachment, title="XML file"):
+        """
+        Returns an action which opens the form view of the
+        corresponding attachment
+        """
         action = {
-            'name': title,
-            'view_mode': 'form',
-            'res_model': 'ir.attachment',
-            'type': 'ir.actions.act_window',
-            'nodestroy': True,
-            'target': 'current',
-            'res_id': attach_id,
+            "name": title,
+            "view_mode": "form",
+            "res_model": "ir.attachment",
+            "type": "ir.actions.act_window",
+            "nodestroy": True,
+            "target": "current",
+            "res_id": attachment.id,
         }
         return action
 
@@ -52,8 +65,10 @@ class IntrastatProductDeclaration(models.Model):
         for declaration_line in self.declaration_line_ids:
 
             # Check does a Member country belong to EU
-            if (declaration_line.src_dest_country_id.id not in europe.ids
-                    or declaration_line.src_dest_country_id.code == "GB"):
+            if (
+                declaration_line.src_dest_country_id.id not in europe.ids
+                or declaration_line.src_dest_country_id.code == "GB"
+            ):
                 continue
 
             grouped_by_vat = {}
@@ -81,8 +96,9 @@ class IntrastatProductDeclaration(models.Model):
 
                 # Add information provider information to first row
                 # if 'first' is set to True
-                csv_string += self._generate_csv_line(vat, amount,
-                    suppl_unit_qty, weight, declaration_line, first)
+                csv_string += self._generate_csv_line(
+                    vat, amount, suppl_unit_qty, weight, declaration_line, first
+                )
                 first = False
 
         return csv_string
@@ -107,7 +123,9 @@ class IntrastatProductDeclaration(models.Model):
 
         return self._list_to_csv_line(headers)
 
-    def _generate_csv_line(self, vat, amount, suppl_unit_qty, weight, declaration_line, first=False):
+    def _generate_csv_line(
+        self, vat, amount, suppl_unit_qty, weight, declaration_line, first=False
+    ):
         line = list()
 
         # Report type is 1 for arrival, 2 for dispatch
@@ -116,14 +134,14 @@ class IntrastatProductDeclaration(models.Model):
         if first:
             # The first line has information provider info
 
-            # Company's VAT
+            # Company's VAT (Information provider)
             line.append(self.company_id.vat)
             # Period
             line.append(self.year_month.replace("-", ""))
             # Direction
             line.append(report_type)
         else:
-            # Other lines have four empty columns
+            # Other lines have three empty columns
             line += ["", "", ""]
 
         # VAT
@@ -132,7 +150,7 @@ class IntrastatProductDeclaration(models.Model):
         # CN8
         line.append(declaration_line.hs_code_id.local_code)
 
-        # Transaction code
+        # Transaction code (Transaction)
         transaction_code = ""
         if declaration_line.transaction_id:
             transaction_code = declaration_line.transaction_id.code
@@ -153,18 +171,23 @@ class IntrastatProductDeclaration(models.Model):
         line.append(transport_mode)
 
         # Net weight
-        line.append(str(weight).replace(".",","))
+        line.append(str(weight).replace(".", ","))
 
-        # Quantity
-        line.append(str(suppl_unit_qty).replace(".",","))
+        # Quantity (Additional units)
+        line.append(str(suppl_unit_qty).replace(".", ","))
 
         # Invoice amount
-        line.append(str(amount).replace(".",","))
+        if amount < 0:
+            # Minimum amount is 1
+            amount = 1
+        # Round the amount to an integer
+        amount = round(amount, 0)
+        line.append(str(amount).replace(".", ","))
 
         # Statistical amount
         line.append("")
 
-        # Ref (not in use yet in Finnish report)
+        # Ref (not yet used in Finnish Intrastat-report)
         line.append("")
 
         return self._list_to_csv_line(line)
@@ -178,20 +201,26 @@ class IntrastatProductDeclaration(models.Model):
         import base64
 
         filename = "{}_{}.csv".format(self.year_month, declaration_name)
-        attach = self.env["ir.attachment"].create(
+        attachment = self.env["ir.attachment"].create(
             {
                 "name": filename,
                 "res_id": self.id,
                 "res_model": self._name,
-                "datas": base64.b64encode(csv_string.encode('ascii')),
+                "datas": base64.b64encode(csv_string.encode("ascii")),
             }
         )
-        return attach.id
+        return attachment
 
     def _prepare_invoice_domain(self):
         domain = super(IntrastatProductDeclaration, self)._prepare_invoice_domain()
 
-        domain.remove(("move_type", "in", ("out_invoice", "out_refund", "in_invoice", "in_refund")))
+        domain.remove(
+            (
+                "move_type",
+                "in",
+                ("out_invoice", "out_refund", "in_invoice", "in_refund"),
+            )
+        )
 
         if self.declaration_type == "arrivals":
             # Import
