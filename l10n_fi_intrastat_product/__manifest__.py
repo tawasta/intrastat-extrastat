@@ -20,10 +20,10 @@
 
 {
     "name": "Intrastat: export Finnish Intrastat CSV",
-    "summary": "Finnish Intrastat report for Customs (Tulli)",
-    "version": "14.0.1.0.0",
+    "summary": "Finnish Intrastat CSV-report for Customs (Tulli)",
+    "version": "14.0.1.0.1",
     "category": "CRM",
-    "website": "https://tawasta.fi",
+    "website": "https://gitlab.com/tawasta/odoo/intrastat-extrastat",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

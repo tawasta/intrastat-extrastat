@@ -1,17 +1,22 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <odoo>
     <record id="intrastat_product_declaration_view_form" model="ir.ui.view">
         <field name="name">intrastat.product.declaration.form.csv.export</field>
         <field name="model">intrastat.product.declaration</field>
-        <field name="inherit_id" ref="intrastat_product.intrastat_product_declaration_view_form" />
+        <field
+            name="inherit_id"
+            ref="intrastat_product.intrastat_product_declaration_view_form"
+        />
         <field name="arch" type="xml">
 
             <xpath expr="//button[@name='generate_xml']" position="after">
-                <button name="generate_csv_finnish"
-                        string="Generate CSV Declaration File"
-                        type="object"
-                        attrs="{'invisible': [('state', '!=', 'draft')]}"
-                        invisible="context.get('finnish_intrastat_product_declaration')"/>
+                <button
+                    name="generate_csv_finnish"
+                    string="Generate CSV Declaration File"
+                    type="object"
+                    attrs="{'invisible': [('state', '!=', 'draft')]}"
+                    invisible="context.get('finnish_intrastat_product_declaration')"
+                />
             </xpath>
 
         </field>
@@ -23,10 +28,12 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="menu_intrastat_product_declaration"
-              parent="intrastat_base.menu_intrastat_base_root"
-              name="Product declaration"
-              action="action_intrastat_product_declaration"
-              sequence="10"/>
+    <menuitem
+        id="menu_intrastat_product_declaration"
+        parent="intrastat_base.menu_intrastat_base_root"
+        name="Product declaration"
+        action="action_intrastat_product_declaration"
+        sequence="10"
+    />
 
 </odoo>
