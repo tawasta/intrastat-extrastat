@@ -10,7 +10,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[l10n_fi_intrastat_product](l10n_fi_intrastat_product/) | 14.0.1.0.1 |  | Finnish Intrastat report for Customs (Tulli)
+[l10n_fi_intrastat_product](l10n_fi_intrastat_product/) | 14.0.1.0.1 |  | Finnish Intrastat CSV-report for Customs (Tulli)
 [l10n_fi_intrastat_product_partner_vat](l10n_fi_intrastat_product_partner_vat/) | 14.0.1.0.0 |  | Intrastat Product - Vendor VAT number
 
 [//]: # (end addons)
