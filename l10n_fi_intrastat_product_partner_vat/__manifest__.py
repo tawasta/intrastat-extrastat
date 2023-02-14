@@ -21,7 +21,7 @@
 {
     "name": "Intrastat Product - Vendor VAT number",
     "summary": "Intrastat Product - Vendor VAT number",
-    "version": "12.0.1.0.0",
+    "version": "14.0.1.0.0",
     "category": "Intrastat",
     "website": "https://gitlab.com/tawasta/odoo/intrastat-extrastat",
     "author": "Tawasta",
