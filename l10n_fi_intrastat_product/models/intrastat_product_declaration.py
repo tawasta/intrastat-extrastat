@@ -30,8 +30,9 @@ class IntrastatProductDeclaration(models.Model):
             raise UserError(_("No CSV File has been generated."))
 
     def _download_attachment(self, attachment):
+        base_url = self.env["ir.config_parameter"].sudo().get_param("web.base.url").rstrip('/')
         url = "{}/web/content/{}?download=true".format(
-            self.env["ir.config_parameter"].sudo().get_param("web.base.url"),
+            base_url,
             str(attachment.id),
         )
         return {
