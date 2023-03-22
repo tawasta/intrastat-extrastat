@@ -174,7 +174,7 @@ class IntrastatProductDeclaration(models.Model):
         line.append(transport_mode)
 
         # Net weight
-        line.append(str(weight).replace(".", ","))
+        line.append(str(round(weight, 0)).replace(".", ","))
 
         # Quantity (Additional units)
         line.append(str(suppl_unit_qty).replace(".", ","))
