@@ -174,18 +174,17 @@ class IntrastatProductDeclaration(models.Model):
         line.append(transport_mode)
 
         # Net weight
-        line.append(str(round(weight, 0)).replace(".", ","))
+        line.append(int(round(weight, 0)))
 
         # Quantity (Additional units)
-        line.append(str(suppl_unit_qty).replace(".", ","))
+        line.append(int(round(suppl_unit_qty, 0)))
 
         # Invoice amount
         if amount < 0:
             # Minimum amount is 1
             amount = 1
         # Round the amount to an integer
-        amount = round(amount, 0)
-        line.append(str(amount).replace(".", ","))
+        line.append(int(round(amount, 0)))
 
         # Statistical amount
         line.append("")
