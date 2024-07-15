@@ -28,6 +28,7 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
+    "auto_install": True,
     "external_dependencies": {"python": [], "bin": []},
     "depends": ["intrastat_product"],
     "data": ["views/account_move.xml"],
