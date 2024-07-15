@@ -10,6 +10,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[intrastat_invoice_arrival_label](intrastat_invoice_arrival_label/) | 14.0.1.0.0 |  | Change incorrect 'destination country' to 'origin country'
 [intrastat_product_payment_reference](intrastat_product_payment_reference/) | 14.0.1.0.0 |  | Show payment reference on intrastat transaction lines
 [l10n_fi_intrastat_product](l10n_fi_intrastat_product/) | 14.0.1.0.3 |  | Finnish Intrastat CSV-report for Customs (Tulli)
 [l10n_fi_intrastat_product_partner_vat](l10n_fi_intrastat_product_partner_vat/) | 14.0.1.0.0 |  | Intrastat Product - Vendor VAT number
