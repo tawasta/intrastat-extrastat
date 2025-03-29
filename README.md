@@ -5,4 +5,11 @@ Intrastat and Extrastat reporting
 =================================
 
 [//]: # (addons)
+
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[l10n_fi_intrastat_product](l10n_fi_intrastat_product/) | 17.0.1.0.0 |  | Finnish Intrastat CSV-report for Customs (Tulli)
+
 [//]: # (end addons)
