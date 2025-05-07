@@ -23,7 +23,7 @@
     "summary": "Finnish Intrastat CSV-report for Customs (Tulli)",
     "version": "17.0.1.0.1",
     "category": "CRM",
-    "website": "https://github.com/tawasta/hr",
+    "website": "https://github.com/tawasta/intrastat-extrastat",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
