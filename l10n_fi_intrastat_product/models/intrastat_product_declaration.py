@@ -69,16 +69,8 @@ class IntrastatProductDeclaration(models.Model):
     def _generate_csv(self):
         csv_string = self._generate_csv_headers()
         first = True
-        europe = self.env.ref("base.europe").country_ids
 
         for declaration_line in self.declaration_line_ids:
-            # Check does a Member country belong to EU
-            if (
-                declaration_line.src_dest_country_id.id not in europe.ids
-                or declaration_line.src_dest_country_id.code == "GB"
-            ):
-                continue
-
             grouped_by_vat = {}
 
             # Loop through transactions and fetch amount, quantity and
@@ -164,10 +156,10 @@ class IntrastatProductDeclaration(models.Model):
         line.append(transaction_code)
 
         # Member country
-        line.append(declaration_line.src_dest_country_id.code)
+        line.append(declaration_line.src_dest_country_code)
 
         # Origin country (Country of Origin)
-        coo = declaration_line.product_origin_country_id.code
+        coo = declaration_line.product_origin_country_code
 
         line.append(coo)
 
@@ -204,7 +196,6 @@ class IntrastatProductDeclaration(models.Model):
     def _attach_csv_file(self, csv_string, declaration_name):
         # Attach the CSV file to the report_intrastat_product/service object
         self.ensure_one()
-        import base64
 
         filename = "{}_{}.csv".format(self.year_month, declaration_name)
         attachment = self.env["ir.attachment"].create(
@@ -212,7 +203,7 @@ class IntrastatProductDeclaration(models.Model):
                 "name": filename,
                 "res_id": self.id,
                 "res_model": self._name,
-                "datas": base64.b64encode(csv_string.encode("ascii")),
+                "raw": csv_string,
             }
         )
         return attachment
