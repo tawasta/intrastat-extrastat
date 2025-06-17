@@ -5,6 +5,35 @@ from odoo.exceptions import UserError
 class IntrastatProductDeclaration(models.Model):
     _inherit = "intrastat.product.declaration"
 
+    def _get_partner_and_warn_vat(self, inv_line, notedict):
+        partner = super()._get_partner_and_warn_vat(inv_line, notedict)
+        inv = inv_line.move_id
+        if (
+            inv.commercial_partner_id.country_id
+            == inv.partner_shipping_id.commercial_partner_id.country_id
+        ):
+            # Make an exception for deliveries where target invoice addressa and
+            # shipping address are in the same country. Then VAT-number should be taken
+            # from invoice address, not shipping address. See:
+            # "Tavaratoimitus ja laskutus samaan jäsenmaahan, mutta eri yrityksille"
+            # https://tilastot.tulli.fi/intrastat/ilmoituskohtaiset-tiedot
+            #
+            partner = inv.commercial_partner_id
+
+            vat = partner.vat
+            if (
+                self.declaration_type == "dispatches"
+                and not vat
+                and inv.fiscal_position_id.intrastat != "b2c"
+            ):
+                # VAT is not set for b2b dispatch
+                msg = _("Missing <em>VAT Number</em>")
+                notedict["partner"][partner.display_name][msg].add(
+                    notedict["inv_origin"]
+                )
+
+        return partner
+
     def generate_csv_finnish(self):
         """
         Generate Finnish Intrastat Declaration CSV file
