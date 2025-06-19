@@ -50,6 +50,8 @@ class IntrastatProductDeclaration(models.Model):
 
         csv_string = self._generate_csv()
 
+        self.write({"state": "done"})
+
         if csv_string:
             attachment_id = self._attach_csv_file(
                 csv_string, "{}_{}".format(self.declaration_type, self.revision)
