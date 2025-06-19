@@ -14,7 +14,8 @@
                     name="generate_csv_finnish"
                     string="Generate CSV Declaration File"
                     type="object"
-                    invisible="context.get('finnish_intrastat_product_declaration') or state == 'draft'"
+                    class="btn-primary"
+                    invisible="context.get('finnish_intrastat_product_declaration') or state != 'confirmed'"
                 />
             </xpath>
 
