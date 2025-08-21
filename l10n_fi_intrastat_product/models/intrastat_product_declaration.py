@@ -12,14 +12,16 @@ class IntrastatProductDeclaration(models.Model):
             inv.commercial_partner_id.country_id
             == inv.partner_shipping_id.commercial_partner_id.country_id
         ):
-            # Make an exception for deliveries where target invoice addressa and
+            # Make an exception for deliveries where target invoice address and
             # shipping address are in the same country. Then VAT-number should be taken
             # from invoice address, not shipping address. See:
             # "Tavaratoimitus ja laskutus samaan jäsenmaahan, mutta eri yrityksille"
             # https://tilastot.tulli.fi/intrastat/ilmoituskohtaiset-tiedot
-            #
-            partner = inv.commercial_partner_id
 
+            # Remove possible unnecessary partner VAT error
+            notedict["partner"].pop(partner.display_name, "")
+
+            partner = inv.commercial_partner_id
             vat = partner.vat
             if (
                 self.declaration_type == "dispatches"
