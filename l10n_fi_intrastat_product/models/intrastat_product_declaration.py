@@ -5,6 +5,37 @@ from odoo.exceptions import UserError
 class IntrastatProductDeclaration(models.Model):
     _inherit = "intrastat.product.declaration"
 
+    def _get_partner_and_warn_vat(self, inv_line, notedict):
+        partner = super()._get_partner_and_warn_vat(inv_line, notedict)
+        inv = inv_line.move_id
+        if (
+            inv.commercial_partner_id.country_id
+            == inv.partner_shipping_id.commercial_partner_id.country_id
+        ):
+            # Make an exception for deliveries where target invoice address and
+            # shipping address are in the same country. Then VAT-number should be taken
+            # from invoice address, not shipping address. See:
+            # "Tavaratoimitus ja laskutus samaan jäsenmaahan, mutta eri yrityksille"
+            # https://tilastot.tulli.fi/intrastat/ilmoituskohtaiset-tiedot
+
+            # Remove possible unnecessary partner VAT error
+            notedict["partner"].pop(partner.display_name, "")
+
+            partner = inv.commercial_partner_id
+            vat = partner.vat
+            if (
+                self.declaration_type == "dispatches"
+                and not vat
+                and inv.fiscal_position_id.intrastat != "b2c"
+            ):
+                # VAT is not set for b2b dispatch
+                msg = _("Missing <em>VAT Number</em>")
+                notedict["partner"][partner.display_name][msg].add(
+                    notedict["inv_origin"]
+                )
+
+        return partner
+
     def generate_csv_finnish(self):
         """
         Generate Finnish Intrastat Declaration CSV file
@@ -20,6 +51,8 @@ class IntrastatProductDeclaration(models.Model):
         self._unlink_attachments()
 
         csv_string = self._generate_csv()
+
+        self.write({"state": "done"})
 
         if csv_string:
             attachment_id = self._attach_csv_file(
@@ -69,16 +102,8 @@ class IntrastatProductDeclaration(models.Model):
     def _generate_csv(self):
         csv_string = self._generate_csv_headers()
         first = True
-        europe = self.env.ref("base.europe").country_ids
 
         for declaration_line in self.declaration_line_ids:
-            # Check does a Member country belong to EU
-            if (
-                declaration_line.src_dest_country_id.id not in europe.ids
-                or declaration_line.src_dest_country_id.code == "GB"
-            ):
-                continue
-
             grouped_by_vat = {}
 
             # Loop through transactions and fetch amount, quantity and
@@ -164,10 +189,10 @@ class IntrastatProductDeclaration(models.Model):
         line.append(transaction_code)
 
         # Member country
-        line.append(declaration_line.src_dest_country_id.code)
+        line.append(declaration_line.src_dest_country_code)
 
         # Origin country (Country of Origin)
-        coo = declaration_line.product_origin_country_id.code
+        coo = declaration_line.product_origin_country_code
 
         line.append(coo)
 
@@ -204,7 +229,6 @@ class IntrastatProductDeclaration(models.Model):
     def _attach_csv_file(self, csv_string, declaration_name):
         # Attach the CSV file to the report_intrastat_product/service object
         self.ensure_one()
-        import base64
 
         filename = "{}_{}.csv".format(self.year_month, declaration_name)
         attachment = self.env["ir.attachment"].create(
@@ -212,7 +236,7 @@ class IntrastatProductDeclaration(models.Model):
                 "name": filename,
                 "res_id": self.id,
                 "res_model": self._name,
-                "datas": base64.b64encode(csv_string.encode("ascii")),
+                "raw": csv_string,
             }
         )
         return attachment
