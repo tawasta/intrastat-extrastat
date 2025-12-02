@@ -56,7 +56,7 @@ class IntrastatProductDeclaration(models.Model):
 
         if csv_string:
             attachment_id = self._attach_csv_file(
-                csv_string, "{}_{}".format(self.declaration_type, self.revision)
+                csv_string, f"{self.declaration_type}_{self.revision}"
             )
             return self._download_attachment(attachment_id)
         else:
@@ -72,10 +72,7 @@ class IntrastatProductDeclaration(models.Model):
         base_url = (
             self.env["ir.config_parameter"].sudo().get_param("web.base.url").rstrip("/")
         )
-        url = "{}/web/content/{}?download=true".format(
-            base_url,
-            str(attachment.id),
-        )
+        url = f"{base_url}/web/content/{str(attachment.id)}?download=true"
         return {
             "type": "ir.actions.act_url",
             "url": url,
@@ -230,7 +227,7 @@ class IntrastatProductDeclaration(models.Model):
         # Attach the CSV file to the report_intrastat_product/service object
         self.ensure_one()
 
-        filename = "{}_{}.csv".format(self.year_month, declaration_name)
+        filename = f"{self.year_month}_{declaration_name}.csv"
         attachment = self.env["ir.attachment"].create(
             {
                 "name": filename,
@@ -242,7 +239,7 @@ class IntrastatProductDeclaration(models.Model):
         return attachment
 
     def _prepare_invoice_domain(self):
-        domain = super(IntrastatProductDeclaration, self)._prepare_invoice_domain()
+        domain = super()._prepare_invoice_domain()
 
         if self.declaration_type == "arrivals":
             domain.remove(
